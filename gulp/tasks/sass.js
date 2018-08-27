@@ -24,4 +24,9 @@ module.exports = function(){
 			stream:true
 		}));
 	});
+	$.gulp.task('sass:qcmq', function(){
+		return $.gulp.src('build/static/css/main.css')
+		.pipe($.gcmq())
+		.pipe($.gulp.dest('build/static/css/'))
+	});
 }

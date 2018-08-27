@@ -5,6 +5,7 @@ global.$ = {
 	gp: require('gulp-load-plugins')(),
 	bs: require('browser-sync').create(),
 	del: require('del'),
+	gcmq: require('gulp-group-css-media-queries'),
 	path: {
 		tasks: require('./gulp/config/tasks.js')
 	}
@@ -28,17 +29,18 @@ $.gulp.task('build',$.gulp.series(
 
 
 $.gulp.task('dev', $.gulp.series(
-    'clean',
-    $.gulp.parallel('sass:dev', 'html', 'scripts', 'fonts', 'svg', 'img:dev')));
+	'clean',
+	$.gulp.parallel('sass:dev', 'html', 'scripts', 'fonts', 'svg', 'img:dev')));
 
 $.gulp.task('build', $.gulp.series(
-    'clean',
-    $.gulp.parallel('sass:build', 'html', 'scripts', 'fonts', 'svg', 'img:build')));
+	'clean',
+	$.gulp.parallel('sass:build', 'html', 'scripts', 'fonts', 'svg', 'img:build')));
 
 $.gulp.task('default', $.gulp.series(
-    'dev',
-    $.gulp.parallel(
-        'watch',
-        'serve'
-    )
-));
+	'dev',
+	'sass:qcmq',
+	$.gulp.parallel(
+		'watch',
+		'serve'
+		)
+	));

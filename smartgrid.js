@@ -6,8 +6,8 @@ var settings = {
     offset: '30px', 
     mobileFirst: false, 
     container: {
-        maxWidth: '1050px', 
-        fields: '20px' 
+        maxWidth: '1680px', 
+        fields: '30px' 
     },
     breakPoints: {
         lg: {
@@ -29,7 +29,7 @@ var settings = {
 
         },
         tablet: {
-            width: '1024px',
+            width: '992px',
             fields: '15px'
 
         },
@@ -38,13 +38,18 @@ var settings = {
             fields: '15px'
 
         },
+        phoneh: {
+            width: '576px',
+            fields: '15px'
+
+        },
         phone: {
             width: '480px',
-            fields: '10px'
+            fields: '15px'
         },
         iphone: {
             width: '320px',
-            fields: '10px'
+            fields: '15px'
         }
 
     }

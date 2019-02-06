@@ -15,7 +15,7 @@ var settings = {
             fields: '20px'
         },
         desktop: {
-            width: '1440px',
+            width: '1680px',
             fields: '15px'
         },
         md: {
@@ -24,7 +24,7 @@ var settings = {
 
         },
         mdx: {
-            width: '1280px',
+            width: '1200px',
             fields: '15px'
 
         },

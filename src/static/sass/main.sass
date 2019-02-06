@@ -21,7 +21,7 @@ html
 	*, *:before, *:after
 		box-sizing: inherit
 
-body.home
+body
 	font-size: 16px
 	min-width: 320px
 	position: relative
@@ -40,7 +40,9 @@ body.home
 .container
 	+wrapper()
 
-
+.section
+	position: relative
+	z-index: 2
 .sk-cube-grid
 	width: 80px
 	height: 80px
@@ -78,6 +80,13 @@ body.home
 .sk-cube-9
   animation-delay: ($delayRange * 0.50)
 
+
+.slick-dots
+	li
+		button
+			&::before
+				font-size: 12px
+
 .preloader
 	position: fixed
 	width: 100%
@@ -90,50 +99,7 @@ body.home
 	bottom: 0
 	right: 0
 	z-index: 9999
-	background-color: rgba($accent, .9)
-	&__spinner
-		position: absolute
-		top: 50%
-		left: 50%
-		transform: translate(-50%, -50%)
-		width: 150px
-		height: 150px
-	&__percents
-		position: absolute
-		top: 50%
-		left: 50%
-		transform: translate(-50%, -50%)
-		color: #fff
-		font-size: 20px
-	&__animation
-		width: 150px
-		height: 150px
-		position: relative
-		animation: spin 2s linear infinite 
-		&, &::before, &::after
-			content: ''
-			position: absolute 		
-			border: 3px solid transparent
-			border-top-color: #fff
-			border-radius: 50%
-		&::before
-			top: 13px
-			bottom: 13px
-			right: 13px
-			left: 13px
-			animation: spin 1.5s linear infinite 
-		&::after
-			top: 5px
-			bottom: 5px
-			right: 5px
-			left: 5px
-			animation: spin 3s linear infinite 
-@keyframes spin
-  0%
-    transform: rotate(0deg)
-  100%
-    transform: rotate(360deg)
-
+	background-color: rgba($accent, 1)
 .text-wrap
 	display: block
 .header-bg-svg
@@ -157,8 +123,11 @@ body.home
 	color: $header-color
 	+tablet-block()
 		font-size: 52px
-	+phoneh-block()
+	+tabletx-block()
 		font-size: 48px
+	+phoneh-block()
+		font-size: 42px
+
 	&.header-bottom-line
 		&::after
 			bottom: -5px
@@ -204,57 +173,44 @@ body.home
 	border: 1px solid #fff
 	text-decoration: none
 	color: #fff
-	border-radius: 15px
 	padding: 10px 25px
 	transition: all .25s ease
 	i
 		margin-right: 5px
-	&:hover
-		background-color: $accent
-		border: 1px solid #729e19
-		transition: all .25s ease
 	&--inverse
 		background-color: $accent
 		color: #fff
 	&--inline
 		display: inline-block
+	&:hover
+		border-radius: 25px
+		background-color: $accent
 
 /*Main Header*/
-.bg-image
-	position: fixed
-	width: 100%
-	height: 100%
-	z-index: 1
-	top: 0
-	right: 0
-	bottom: 0
-	left: 0
-	background: url("../img/content/header/water.jpg") -25px -50px
-	background-size: calc(100% + 100px)
-	transition: background-position .10s ease
-	background-repeat: no-repeat
-	+tablet-block()
-		background-position: center center !important 
-		background-size: cover
 .main-header
 	position: relative
 	width: 100%
 	height: 100vh
 	min-height: 650px
 	background-color: $accent
+	background: url("../img/content/header/water.jpg")
+	background-size: cover
+	background-repeat: no-repeat
 	&__wrapper
 		position: relative
 		display: flex
 		justify-content: space-between
 		flex-direction: column
-		padding: 40px 40px 30px
+		padding: 40px 40px 20px
 		height: 100%
+		&--page
+			padding-bottom: 40px
 	&::before, &::after
 		position: absolute
 		content: ''
 		width: 100%
 		height: 200px
-		z-index: 2
+		//z-index: 2
 	&::before
 		background-image: url("../img/content/header/dark-top.png")
 		top: 0
@@ -267,6 +223,7 @@ body.home
 		background-image: url("../img/content/header/water.jpg")
 		background-size: cover
 		background-position: top left
+		width: 100% !important
 		height: 100vh
 		min-height: 650px
 		.main-header__wrapper
@@ -283,18 +240,22 @@ body.home
 	&--row
 		display: flex
 		justify-content: space-between
+		align-items: center
 	&--right
 		margin-left: auto
 	+phoneh-block()
-		margin: 0 auto
+		//margin: 0 auto
 .main-block, .bottom-line
 	position: relative
-	z-index: 20
+	z-index: 1
 	align-self: center
 .main-block
 	width: 100%
 	max-width: 420px
-	position: relative
+	position: absolute
+	top: 50%
+	left: 50%
+	transform: translate(-50%, -50%)
 	+tabletx-block()
 		max-width: 400px
 	&--absolute
@@ -313,10 +274,16 @@ body.home
 	h3
 		font-size: 28px
 		margin: 15px 0 3px
+		opacity: 0
 		+tabletx-block()
 			font-size: 24px
 	p
-		opacity: .8
+		opacity: 0
+	&--blog
+		h3
+			font-size: 35px
+			text-transform: uppercase
+			font-family: $OpenSansSemiBold
 
 .main-photo
 	width: 141px
@@ -327,6 +294,7 @@ body.home
 		width: 100%
 		height: 100
 		border-radius: 50%
+		opacity: 0
 
 .main-navigation
 	background-color: #6c9c5a
@@ -449,7 +417,8 @@ body.home
 	position: absolute
 	width: 100%
 	bottom: 0
-	z-index: 10
+	z-index: 1
+	display: none
 	.triangle
 		position: absolute
 		bottom: 0
@@ -462,86 +431,105 @@ body.home
 	.right
 		&--bedge
 			fill: #f4f5f0
-		+tablet-block()
+		+mdx-block()
 			fill: #ebefe2
 		&--works
 			+tablet-block()
 				fill: #f4f5f0
 
 /*Triangles*/
-
+@keyframes fade-in
+	0%
+		opacity: 0
+		top: -160px
+	50%
+		opacity: 1
+		top: -180px
+	100%
+		opacity: 1
 /*Toggle Navigation*/
+.cl-hover-effect
+
+
+
+
 .toggle-navigation
-	position: fixed
+	position: absolute
 	display: flex
 	align-items: center
 	justify-content: center
-	right: 0
-	top: 0
-	width: 30vw
-	height: 100vh
-	overflow: hidden
-	background-color: rgba(#6c9c5a, .8)
-	transform: translateX(100%)
-	z-index: 20
+	top: -9999px
+	width: 100%
+	height: 100%
+	//overflow: hidden
+	background-color: rgba(#6c9c5a, .9)
+	//transform: translateX(100%)
 	transition: transform .5s ease
+	z-index: 10
 	&--active
-		transform: translateX(0%)
+		//transform: translateX(0%)
 	ul
 		width: 100%
-
+		display: flex
+		justify-content: center
+		+md-block()
+			display: block
 	li
-		margin-bottom: 25px
+		//margin-bottom: 25px
+		margin-right: 30px
+		&:last-child
+			margin-right: 0
+		+md-block()
+			margin-right: 0
+			margin-bottom: 35px
 	a
 		position: relative
 		display: block
 		text-decoration: none
 		color: #fff
 		text-align: center
-		font-size: 40px
+		font-size: 33px
 		text-transform: uppercase
 		font-family: $OpenSansBold
-		//letter-spacing: 1.27px
-		span
-			position: relative
-			transition: width .25s linear
-			&::before
-				position: absolute
-				content: ''
-				left: 0
-				bottom: 0
-				width: 0%
-		&:hover
+		padding: 5px 40px
+		letter-spacing: 1.27px
+		+md-block()
+			padding-left: 0
+			padding-right: 0
+		+tablet-block()
+			font-size: 35px
+		+phoneh-block()
+			font-size: 28px
 			
-			span
-				&::before
-					width: 100%
-					left: 50%
-					transform: translateX(-50%)
-					background-color: #fff
-					height: 4px
-					transition: width .25s linear
-			
-
-
 /*Toggle Navigation*/
 .arrow-down
-	fill: #fff
-	transition: opacity .25s ease
-	opacity: .7
-	&:hover
+	display: block
+	width: 15px
+	height: 15px
+	border-bottom: 3px solid #fff
+	border-right: 3px solid #fff
+	transform: translate(-50%, 0) rotate(45deg)
+	animation: fade_move_down 2.5s ease-in-out infinite
+
+@keyframes fade_move_down
+	0%
+		transform: translate(0, -10px) rotate(45deg)
+		opacity: 0
+	50%
 		opacity: 1
-		transition: opacity .25s ease
+	100%
+		transform: translate(0, 10px) rotate(45deg)
+		opacity: 0	
 
 /*About*/
 .s-about
 	&__wrapper
 		//+row-flex()
 		display: flex
-		+tablet-block()
+		+mdx-block()
 			flex-direction: column
 .about, .skills
-	padding: 0 30px
+	padding: 30px
 .about
 	flex: 1
 	//+size(6)
@@ -592,30 +580,32 @@ body.home
 /*About*/
 
 /*Skills Items*/
-.top-skills
+.skills-row
+	margin-bottom: 40px
+	&:last-child
+		margin-bottom: 0
+.frontend-skills
 	margin-top: 60px
 .skills-header
 	font-size: 28px
 	color: $subheader-color
 	font-family: $OpenSansSemiBold
-	margin-bottom: 10px
-	+tablet-block()
+	margin-bottom: 20px
+	+mdx-block()
 		text-align: center
 .skills-items
 	display: flex
 	flex-wrap: wrap
-
-	+tablet-block()
+	width: 80%
+	+desktop-block()
+		width: 100%
+	+mdx-block()
 		justify-content: center
 .skill-item
 	position: relative
 	flex-basis: 120px
-	margin-right: 30px
+	margin-right: 40px
 	margin-bottom: 10px
-	&:last-child
-		margin-right: 0
-		+tablet-block()
-			//margin-right: 30px
 	&__text
 		position: absolute
 		top: 50%
@@ -624,6 +614,13 @@ body.home
 		color: $accent
 		font-size: 14px
 		text-align: center
+	+phoneh-block()
+		text-align: center
+		margin-right: 0
+	svg
+		+phoneh-block()
+			width: 140px
+			height: 140px
 .circles
 	fill: none
 	stroke-width: 15
@@ -631,24 +628,21 @@ body.home
 		stroke: #dfdcd5
 	&__second
 		stroke: $accent
-.circle-100
-	stroke-dasharray: 565.2
-	stroke-dashoffset: 282.6
-.circle-90
-	stroke-dasharray: 500
-	stroke-dashoffset: 250
-.circle-80
-	stroke-dasharray: 450
-	stroke-dashoffset: 225
+.circle
+	stroke-dasharray: 282.735
+	stroke-dashoffset: 282.735
 /*Skills Items*/
 
 .map-wrapper
 	position: relative
 	display: flex
 	flex-direction: column
+	width: 100%
 	height: 100%
-	min-height: 800px
+	min-height: 1000px
 	justify-content: center
+	z-index: 9999
+	//background-color: red
 #map
 	position: absolute
 	top: 0
@@ -661,6 +655,9 @@ body.home
 	align-items: center
 	justify-content: center
 	flex: 1
+	+phoneh-block()
+		flex: none
+		align-items: flex-start
 .contacts
 	position: relative
 	width: 100%
@@ -683,7 +680,7 @@ body.home
 		li
 			display: flex
 			align-items: center
-			margin-bottom: 10px
+			margin-bottom: 15px
 			i
 				color: $accent
 				font-size: 24px
@@ -788,7 +785,10 @@ body.home
 
 /*s-works*/
 .s-works
+	width: 100%
+	padding-top: 30px
 	background-color: #f4f5f0
+
 .works
 	display: flex
 	flex-direction: column
@@ -970,16 +970,26 @@ body.home
 	align-items: center
 	justify-content: center
 	width: 100%
+	height: 100vh
+	min-height: 800px
 	background-color: cover
 	background-repeat: no-repeat
 	background-size: cover
+	background-color: #E1E4D7
 	background-image: url("../img/content/contacts/contacts-bg.png")
-	//min-height: 800px
+	+tablet-block()
+		height: auto
+
 /*s-contacts*/
 /*Animations*/
-.animate
+.social-animate, .animate-menu
 	position: relative
 	opacity: 0
+.animate
+	opacity: 0
+.animate-on-scroll
+.fade-in
+	opacity: 1
 .toRight
 	animation: toRight 1s
 	animation-fill-mode: forwards
@@ -996,33 +1006,28 @@ body.home
 	&__content
 		//background-color: rgba(#dadbd6, .6)
 		padding: 30px 30px 20px
+		text-align: center
+		+phoneh-block()
+			padding-left: 5px
+			padding-right: 5px
 	&__fields
 		margin-top: 63px
 		display: flex
 		flex-direction: column
 	&__input
-		display: block
-		border: 1px solid #fff
-		background-color: rgba(#fff, .85)
-		margin-bottom: 20px
-		padding: 10px
-		border-radius: 10px
-		color: #5d5a55
-		opacity: 1
-		+placeholder
-			color: #5d5a55
-			opacity: .5
+		line-height: 25px
+		padding: 10px 20px
 	&__textarea
-		display: block
-		border: 1px solid #fff
-		background-color: rgba(#fff, .85)
-		margin-bottom: 20px
-		padding: 10px
-		border-radius: 10px
-		color: #5d5a55
-		opacity: 1
 		resize: none
+		padding: 15px 20px
 		height: auto
+	&__input, &__textarea
+		display: block
+		color: #5d5a55
+		border: none
+		background-color: rgba(#fff, .85)
+		border-radius: 15px
+		margin-bottom: 20px
 		+placeholder
 			color: #5d5a55
 			opacity: .5
@@ -1055,6 +1060,8 @@ body.home
 		right: 15%
 		top: 5%
 .contacts-wrapper
+	display: flex
+	align-items: center
 	width: 100%
 	height: 100%
 	margin: 70px 0 50px
@@ -1076,11 +1083,115 @@ body.home
 
 
 
+.calculator
+	display: flex
+	justify-content: space-between
+	div
+		background-color: $accent
+		padding: 30px
+		color: #000
+.result
+	color: #000
 
 
 
-
-
-
+.transition-fade
+	transition: .4s
+	opacity: 1
+html.is-animating .transition-fade
+	opacity: 0
+.aside
+	width: 25%
+.main
+	width: 75%
+	margin-left: 7%
+.blog
+	position: relative
+	color: #000
+	background-color: #faf8f0
+	padding-top: 60px
+	&-wrapper
+		display: flex
+	&-navigation
+		ul 
+			display: flex
+			flex-direction: column
+			align-items: flex-end
+			text-align: right
+		li
+			margin-bottom: 24px
+			a
+				display: inline-flex
+				align-items: center
+				cursor: pointer
+				text-decoration: none
+				color: #455a64
+				padding: 5px
+			&.active
+				a
+					position: relative
+					font-family: $OpenSansSemiBold
+					color: $accent
+					&::after
+						position: absolute
+						content: ''
+						right: -17px
+						bottom: 0
+						width: 3px
+						height: 42px
+						top: 50%
+						transform: translateY(-50%)
+						background-color: $accent
+	&-content
+		position: relative
+		&__date
+			display: block
+			color: $accent
+			margin: 20px 0
+.article
+	position: relative
+	padding-bottom: 70px
+	margin-bottom: 70px
+	&::after
+		position: absolute
+		content: ''
+		width: 70%
+		height: 5px
+		background-color: rgba(#373e42, .07)
+		bottom: 0
+	&:last-child
+		margin-bottom: 0
+		&::after
+			display: none
+	p
+		color: #455a64
+		margin-bottom: 10px
+		line-height: 26px
+.hidden-menu
+	position: fixed
+	display: none
+	left: 0
+	top: 0
+	width: 30%
+	height: 100vh
+	//min-height: 600px
+	background-color: $accent
+	transform: translateX(-100%)
+	transition: transform .35s ease
+	&.active
+		transform: translateX(0)
+		transition: transform .35s ease
+	&__toggle
+		position: absolute
+		z-index: 1
+		content: ''
+		top: 50%
+		right: -20px
+		transform: translateY(-50%)
+		width: 60px
+		height: 60px
+		background-color: $accent
+		border-radius: 50%
+	
 
 @import "media"

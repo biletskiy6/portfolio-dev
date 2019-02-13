@@ -8,5 +8,6 @@ module.exports = [
 	'./gulp/tasks/img.js',
 	'./gulp/tasks/svg.js',
 	'./gulp/tasks/fonts.js',
+	'./gulp/tasks/php.js',
 	'./gulp/tasks/rsync.js',
 ];

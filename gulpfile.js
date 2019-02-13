@@ -17,24 +17,24 @@ $.path.tasks.forEach(function(taskPath){
 
 $.gulp.task('default',$.gulp.series(
 	'clean',
-	$.gulp.parallel('html', 'sass:dev', 'scripts', 'img:dev', 'svg'),
+	$.gulp.parallel('html', 'php', 'sass:dev', 'scripts', 'img:dev', 'svg'),
 	$.gulp.parallel('watch', 'serve'),
 	));
 
 $.gulp.task('build',$.gulp.series(
 	'clean',
-	$.gulp.parallel('html', 'sass:build', 'scripts', 'img:build'),
+	$.gulp.parallel('html', 'php', 'sass:build', 'scripts', 'img:build'),
 	$.gulp.parallel('watch', 'serve'),
 	));
 
 
 $.gulp.task('dev', $.gulp.series(
 	'clean',
-	$.gulp.parallel('sass:dev', 'html', 'scripts', 'fonts', 'svg', 'img:dev')));
+	$.gulp.parallel('sass:dev', 'html', 'php', 'scripts', 'fonts', 'svg', 'img:dev')));
 
 $.gulp.task('build', $.gulp.series(
 	'clean',
-	$.gulp.parallel('sass:build', 'html', 'scripts', 'fonts', 'svg', 'img:build')));
+	$.gulp.parallel('sass:build', 'html', 'php', 'scripts', 'fonts', 'svg', 'img:build')));
 
 $.gulp.task('default', $.gulp.series(
 	'dev',

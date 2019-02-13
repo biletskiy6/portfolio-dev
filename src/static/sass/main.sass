@@ -186,6 +186,49 @@ body
 		border-radius: 25px
 		background-color: $accent
 
+
+.page-container
+	position: fixed
+	width: 100%
+	height: 100%
+	&::before, &::after
+		position: absolute
+		content: ''
+		width: 100%
+		height: 180px
+		z-index: 1
+	&::before
+		background-image: url("../img/content/header/dark-top.png")
+		top: 0
+		left: 0
+	&::after
+		background-image: url("../img/content/header/dark-bottom.png")
+		bottom: 0
+		right: 0
+	+mdx-block()
+		position: relative
+		width: 100%
+		height: 100%
+		min-height: 700px
+		background-image: url("../img/content/header/water.jpg")
+		background-size: cover
+		background-repeat: no-repeat
+		background-position: center center
+.page-back
+	width: 120%
+	height: 120%
+	left: -10%
+	top: -10%
+	position: absolute
+	background-image: url("../img/content/header/water.jpg")
+	background-size: cover
+	background-repeat: no-repeat
+	background-position: center center
+	transition: all .1s ease
+	+mdx-block()
+		display: none
+
+
 /*Main Header*/
 .main-header
 	position: relative
@@ -201,7 +244,7 @@ body
 		display: flex
 		justify-content: space-between
 		flex-direction: column
-		padding: 40px 40px 20px
+		//padding: 40px 40px 20px
 		height: 100%
 		&--page
 			padding-bottom: 40px
@@ -225,18 +268,26 @@ body
 		background-position: top left
 		width: 100% !important
 		height: 100vh
-		min-height: 650px
-		.main-header__wrapper
-			padding-bottom: 50px	
+		min-height: 650px	
 .bottom-line
 	padding-top: 20px
-	//padding-bottom: 20px
+	padding-bottom: 20px
 	+phoneh-block()
 		text-align: center
+
+
 .top-line
 	position: relative
+	padding-top: 30px
+	padding-right: 50px
+	padding-left: 50px
 	z-index: 999
-	padding-bottom: 20px
+	+tablet-block()
+		padding-right: 40px
+		padding-left: 40px
+	+phoneh-block()
+		padding-right: 30px
+		padding-left: 20px
 	&--row
 		display: flex
 		justify-content: space-between
@@ -247,15 +298,15 @@ body
 		//margin: 0 auto
 .main-block, .bottom-line
 	position: relative
-	z-index: 1
+	z-index: 2
 	align-self: center
 .main-block
 	width: 100%
 	max-width: 420px
-	position: absolute
-	top: 50%
-	left: 50%
-	transform: translate(-50%, -50%)
+	//position: absolute
+	//top: 50%
+	//left: 50%
+	//transform: translate(-50%, -50%)
 	+tabletx-block()
 		max-width: 400px
 	&--absolute
@@ -573,7 +624,8 @@ body
 	p
 		color: $subheader-color
 		text-align: left
-		margin-bottom: 10px
+		margin-bottom: 30px
+		line-height: 28px
 		&:last-child
 			margin-bottom: 0
 
@@ -641,7 +693,7 @@ body
 	height: 100%
 	min-height: 1000px
 	justify-content: center
-	z-index: 9999
+	z-index: 100
 	//background-color: red
 #map
 	position: absolute
@@ -1094,7 +1146,6 @@ body
 	color: #000
 
 
-
 .transition-fade
 	transition: .4s
 	opacity: 1
@@ -1102,9 +1153,52 @@ html.is-animating .transition-fade
 	opacity: 0
 .aside
 	width: 25%
+	+mdx-block()
+		position: absolute
+		display: flex
+		flex-direction: column
+		justify-content: center
+		padding: 20px
+		width: 40%
+		height: 100%
+		z-index: 5
+		top: 0
+		left: 0
+		background-color: #6c9c5a
+		transform: translateX(-100%)
+		transition: transform .25s ease
+		+tablet-block()
+			width: 90%
+		&__circle
+			display: block
+			&::after
+				position: absolute
+				content: ''
+				width: 50px
+				height: 50px
+				z-index: -1
+				border-radius: 50%
+				background-color: #6c9c5a
+				top: 50%
+				transform: translateY(-50%)
+				box-shadow: 3px 0 3px rgba(0, 0, 0, 0.2)
+				right: -15px
+	&__circle
+		display: none
+	&.active
+		transform: translateX(0)
+		transition: transform .25s ease
+		.aside__circle
+			&::after
+				box-shadow: none
+
+
 .main
 	width: 75%
 	margin-left: 7%
+	+mdx-block()
+		width: 100%
+		margin-left: 5%
 .blog
 	position: relative
 	color: #000
@@ -1119,19 +1213,25 @@ html.is-animating .transition-fade
 			align-items: flex-end
 			text-align: right
 		li
+			width: 100%
 			margin-bottom: 24px
 			a
-				display: inline-flex
-				align-items: center
+				display: block
 				cursor: pointer
 				text-decoration: none
 				color: #455a64
 				padding: 5px
+				+mdx-block()
+					color: #fff
+					opacity: .7
 			&.active
 				a
 					position: relative
 					font-family: $OpenSansSemiBold
 					color: $accent
+					+mdx-block()
+						color: #fff
+						opacity: 1
 					&::after
 						position: absolute
 						content: ''
@@ -1142,6 +1242,9 @@ html.is-animating .transition-fade
 						top: 50%
 						transform: translateY(-50%)
 						background-color: $accent
+						+mdx-block()
+							display: none
+
 	&-content
 		position: relative
 		&__date

@@ -44,9 +44,9 @@ var preloader = (function() {
         timeline.to(".button.animate", 0.5, {
             opacity: 1,
             ease: Expo.easeInOut
-        }, 0.5);
+        }, 0.3);
 
-        timeline.to("body.page svg.animate", 1, {
+        timeline.to("body.page svg.animate", 0.1, {
             opacity: 0.13,
             ease: Expo.easeInOut
         }, 0.1);
@@ -58,23 +58,21 @@ var preloader = (function() {
 
 
 
-        var durationSocials = 0.1;
+        var durationSocials = 0.5;
         $(".social-animate").each(function() {
             var socailAnimate = new TimelineMax();
             socailAnimate.to(this, 1, {
                 opacity: 1,
                 ease: Expo.easeInOut
             }, durationSocials);
-            durationSocials += 0.1;
         });
-        var durationMenu = 0.1;
+        var durationMenu = 0.6;
         $(".animate-menu").each(function() {
             var socailAnimate = new TimelineMax();
             socailAnimate.to(this, 1, {
                 opacity: 1,
                 ease: Expo.easeInOut
             }, durationSocials);
-            durationMenu += 0.1;
         });
 
     }
@@ -281,7 +279,7 @@ function scrollMagic() {
 
         var ourScene = new ScrollMagic.Scene({
             triggerElement: this,
-            triggerHook: 0.85,
+            triggerHook: 0.9,
         })
 
         .setTween(TweenMax.from(this, 0.6, {
@@ -299,9 +297,9 @@ function scrollMagic() {
     var strokeDelay = 0.2;
     $(".circle").each(function(index, el) {
         var circle = new ScrollMagic.Scene({
-           triggerElement: this,
-           triggerHook: 0.75,
-       })
+         triggerElement: this,
+         triggerHook: 0.9,
+     })
         .setTween(TweenMax.to(this, 1.6, {
             strokeDashoffset: strokeOffset,
         })) 
@@ -314,12 +312,12 @@ function scrollMagic() {
 function greenSockMenu() {
     var t1 = new TimelineMax({ paused: true });
 
-    t1.to(".toggle-navigation", 0.9, {
+    t1.to(".toggle-navigation", 0.8, {
         top: 0,
         ease: Expo.easeInOut
     });
 
-    t1.staggerFrom(".toggle-navigation ul li", 1.5, {
+    t1.staggerFrom(".toggle-navigation ul li", 1, {
         y: 100,
         opacity: 0,
         ease: Expo.easeOut,
@@ -340,14 +338,14 @@ function swupArticles() {
 
         $(".blog-content").load($(".blog-navigation li a:first").attr('href'));
         $(".blog-navigation li a").on("click", function(e) {
-           e.preventDefault();
-           var href = $(this).attr('href');
-           $(".blog-content").hide().load(href).fadeIn();
+         e.preventDefault();
+         var href = $(this).attr('href');
+         $(".blog-content").hide().load(href).fadeIn();
 
-           $(".blog-navigation li").removeClass("active");
-           $(this).parent().addClass('active');
+         $(".blog-navigation li").removeClass("active");
+         $(this).parent().addClass('active');
 
-           if($('.aside').hasClass('active')) {
+         if($('.aside').hasClass('active')) {
             $(".aside").removeClass("active");
         }
 
@@ -377,6 +375,8 @@ function moveBg(block) {
                 var widthScreen = $(window).width();
                 if(widthScreen <= 1200) {
                     pageContainer.removeEventListener('mousemove', handleMouseMove);
+                } else {
+                    pageContainer.addEventListener('mousemove', handleMouseMove);
                 }
 
             });
@@ -389,7 +389,7 @@ function moveBg(block) {
 function initScrollMagicPin() {
 
 
-var tooSmall = false;
+    var tooSmall = false;
     var controller = null;
     var maxWidth = 992; // or whatever your max width is
 
@@ -399,25 +399,25 @@ var tooSmall = false;
 
     function scrollMagicPin() {
 
-    var controller = new ScrollMagic.Controller({
-        globalSceneOptions: {
-            triggerHook: 'onLeave'
+        var controller = new ScrollMagic.Controller({
+            globalSceneOptions: {
+                triggerHook: 'onLeave'
+            }
+        });
+
+        var slides = document.querySelectorAll(".pin");
+
+
+        for (var i = 0; i < slides.length; i++) {
+            new ScrollMagic.Scene({
+                triggerElement: slides[i]
+            })
+            .setPin(slides[i])
+            .addIndicators()
+            .addTo(controller);
         }
-    });
 
-    var slides = document.querySelectorAll(".pin");
-
-
-    for (var i = 0; i < slides.length; i++) {
-        new ScrollMagic.Scene({
-            triggerElement: slides[i]
-        })
-        .setPin(slides[i])
-        .addIndicators()
-        .addTo(controller);
     }
-
-}
 
     if( !tooSmall ) {
         scrollMagicPin();
@@ -451,7 +451,7 @@ $(function() {
     scrollMagic();
     swupArticles();
     moveBg($(".page-back"));
-    initScrollMagicPin();
+    //initScrollMagicPin();
 
 
     $(".aside__circle").on("click", function() {
@@ -484,13 +484,13 @@ $(function() {
         }   
     }
 
-  
+
 
     var widthScreen = $(window).width();
     $(window).ready(showSliderScreen(widthScreen)).resize(function(){
         var widthScreen = $(window).width();
         showSliderScreen(widthScreen);
-    
+
     });
 
 
@@ -510,17 +510,92 @@ $(function() {
     });
 
 
+    $('form.contacts-form #contacts-form__name, form.contacts-form #contacts-form__email, form.contacts-form #contacts-form__message').unbind().blur(function() {
+
+        var id = $(this).attr('id');
+        var val = $(this).val();
+
+
+        switch (id) {
+            case 'contacts-form__name':
+            var rv_name = /^[a-zA-Zа-яА-Я]+$/;
+
+            if (val != '' && rv_name.test(val)) {
+                $(this).removeClass("contacts-form__input--error").addClass('contacts-form__input--confirm');                    
+            } else {
+                $(this).removeClass('contacts-form__input--confirm').addClass('contacts-form__input--error');
+            }
+            break;
+
+            case 'contacts-form__email':
+            var rv_email = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
+            if (val != '' && rv_email.test(val)) {
+                $(this).removeClass("contacts-form__input--error").addClass('contacts-form__input--confirm');
+            } else {
+                $(this).removeClass('contacts-form__input--confirm').addClass('contacts-form__input--error');
+
+            }
+            break;
+            case 'contacts-form__message':
+
+            if (val.trim() != '') {
+                $(this).removeClass("contacts-form__input--error").addClass('contacts-form__input--confirm');
+            }
+            else {
+                $(this).removeClass('contacts-form__input--confirm').addClass('contacts-form__input--error');
+            }
+
+        }
+
+    });
 
 
 
+    $("form.contacts-form").on("submit", function(e) {
+        e.preventDefault();
 
 
+        var that = $(this),
+        url = that.attr('action'),
+        type = that.attr('method'),
+        data = {};
 
+        that.find('[name]').each(function(index, el) {
+            var that = $(this),
+            name = that.attr('name'),
+            value = that.val();
 
+            data[name] = value;
+        });
+        if($('.contacts-form__input--confirm').length === 3){ 
+           $.ajax({
+            url: url,
+            type: type,
+            data: data,
+            success: function(response) {
+                $(".success-popup").addClass('active');
+                that.trigger("reset");
+                that.find('input, textarea').removeClass('contacts-form__input--confirm');
+                
+            }
+        });
+       } else {
+        that.find('input, textarea').addClass('contacts-form__input--error');
+    }
+});
 
+    $("a.popup__close").on("click", function(e) {
+        e.preventDefault();
+        $(".success-popup").removeClass("active");
+    });
 
-
-
+    $(document).mouseup(function (e){ // событие клика по веб-документу
+        var div = $(".popup"); // тут указываем ID элемента
+        if (!div.is(e.target) // если клик был не по нашему блоку
+            && div.has(e.target).length === 0) { // и не по его дочерним элементам
+            $(".success-popup").removeClass("active"); // скрываем его
+    }
+});
 
 
 

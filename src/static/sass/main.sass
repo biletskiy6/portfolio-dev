@@ -110,8 +110,10 @@ body
 .top-line > a
 	display: block
 .next-page-arrow
+	position: relative
 	fill: #fff
 	opacity: .8
+	z-index: 1
 	&:hover
 		opacity: 1 
 
@@ -234,9 +236,10 @@ body
 	+mdx-block()
 		display: none
 .logo
-	z-index: 1
+	position: relative
 	fill: #fff
 	transition: fill .25s ease
+	z-index: 1
 	&:hover
 		fill: #6c9c5a
 		transition: fill .25s ease
@@ -583,7 +586,7 @@ body
 			align-items: center
 			width: 0px
 			height: 100px
-			background-color: #333
+			background-color: $accent
 			display: flex
 			position: absolute
 			left: -50%
@@ -595,8 +598,6 @@ body
 			text-transform: uppercase
 			&.active
 				left: -1%
-
-			
 /*Toggle Navigation*/
 .arrow-down
 	display: block
@@ -1418,7 +1419,23 @@ html.is-animating .transition-fade
 
 
 
+/////////////////////////
+.test-wrapper
+	max-width: 1240px
+	margin: 0 auto
+	background-color: red			
+.test-item
+	width: calc(25% - 15px)
+	background-color: #000
+	color: #fff
+	margin-left: 15px
+	margin-right: 15px
+	
+.test-container
+	display: flex
+	margin: 0 -15px
 
 
-			
+
+
 @import "media"

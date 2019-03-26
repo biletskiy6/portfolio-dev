@@ -39,6 +39,7 @@
     "jquery": "^3.3.1",
     "normalize.css": "^8.0.0",
     "picturefill": "^3.0.2",
+    "rellax": "^1.9.0",
     "scrollmagic": "^2.0.6",
     "slick-carousel": "^1.8.1",
     "svg4everybody": "^2.1.9",

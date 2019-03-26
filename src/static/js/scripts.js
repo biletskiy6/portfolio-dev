@@ -453,7 +453,13 @@ $(function() {
     moveBg($(".page-back"));
     //initScrollMagicPin();
 
+       var rellax = new Rellax('.rellax', {
+  });
 
+     var rellaxHero = new Rellax('.rellax-hero', {
+        
+  });
+        
     $(".aside__circle").on("click", function() {
         $(this).closest("aside").toggleClass("active");
     });
@@ -514,7 +520,8 @@ $(function() {
 
     
     
-        
+
+ 
 
 
     function animateMenuLink(targetedDiv) {

@@ -447,7 +447,7 @@ $(function() {
     svg4everybody();
     slider.init();
     preloader.init();
-    greenSockMenu();
+    //greenSockMenu();
     scrollMagic();
     swupArticles();
     moveBg($(".page-back"));
@@ -500,7 +500,8 @@ $(function() {
 
     $(".toggle-menu").on("click", function() {
         $(this).toggleClass("toggle-menu--active");
-        $(".toggle-navigation").toggleClass('toggle-navigation--active');
+        $(".toggle-navigation li a").toggleClass("active");
+        $(".main-menu-wrapper").toggleClass('main-menu-wrapper--active');
     });
 
     $(".toggle-navigation li a").on("click", function() {
@@ -508,6 +509,17 @@ $(function() {
         $(".toggle-menu").removeClass('toggle-menu--active');
 
     });
+
+
+
+    
+    
+        
+
+
+    function animateMenuLink(targetedDiv) {
+
+    }
 
 
     $('form.contacts-form #contacts-form__name, form.contacts-form #contacts-form__email, form.contacts-form #contacts-form__message').unbind().blur(function() {

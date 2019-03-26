@@ -52,19 +52,34 @@
                     <span class="arrow-down"></span>
                 </div>
             </div>
-            <nav class="toggle-navigation cl-hover-effect">
+            <div class="main-menu-wrapper">
+                <div class="logo-section">
+                    <svg width="70" height="40" viewbox="0 0 70 40" class="logo-section__img" >
+                            <use xlink:href="static/img/svg/sprite.svg#logo" />
+                        </svg>
+                        <p class="logo-section__text">Creation</p>
+                </div>
+                <nav class="toggle-navigation">
                 <ul>
                     <li>
-                        <a href="index.html"><span>Главная</span></a>
+                        <a href="index.html" data-text="Главная">
+                            Главна<span class="rotate">я</span>
+                        </a>
                     </li>
                     <li>
-                        <a href="about.html"><span>Обо мне</span></a>
+                        <a href="index.html">
+                            Обо<span class="rotate">мне</span>
+                        </a>
                     </li>
                     <li>
-                        <a href="blog.html"><span>Блог</span></a>
+                        <a href="index.html">
+                            Бло<span class="rotate">г</span>
+                        </a>
                     </li>
                 </ul>
             </nav>
+            </div>
+            
             <svg width="1170" height="313" viewbox="0 0 1170 313" class="header-bg-svg animate" >
                 <use xlink:href="static/img/svg/sprite.svg#portfolio_header" />
             </svg>

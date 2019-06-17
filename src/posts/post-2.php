@@ -1,7 +1,21 @@
-<article id="swup" class="article transition-fade">
-	<h3 class="subheader">Самое важное в SASS2</h3>
-	<span class="blog-content__date">12 ноября 2016</span>
-	<p>
-		Таким образом начало повседневной работы по формированию позиции позволяет выполнять важные задания по разработке направлений прогрессивного развития. Разнообразный и богатый опыт новая модель организационной деятельности играет важную роль в формировании новых предложений. Товарищи! новая модель организационной деятельности играет важную роль в формировании систем массового участия.
-	</p>
-</article>
+<?php 
+include "../languages/config.php";
+?>
+<article class="article">
+    <h3 class="subheader"><?php echo $lang['articles']['second']['title']; ?></h3>
+    <span class="blog-content__date"><?php echo $lang['articles']['second']['date']; ?></span>
+    <ul class="chapter">
+        <li>
+            <span><?php echo $lang['articles']['second']['header-1']; ?></span> <?php echo $lang['articles']['second']['text-1']; ?>
+        </li>
+         <li>
+            <span><?php echo $lang['articles']['second']['header-2']; ?></span> <?php echo $lang['articles']['second']['text-2']; ?>
+        </li>
+         <li>
+            <span><?php echo $lang['articles']['second']['header-3']; ?></span> <?php echo $lang['articles']['second']['text-3']; ?>
+        </li>
+         <li>
+            <span><?php echo $lang['articles']['second']['header-4']; ?></span> <?php echo $lang['articles']['second']['text-4']; ?>
+        </li>
+    </ul>
+</article> 

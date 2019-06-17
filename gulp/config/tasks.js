@@ -10,4 +10,5 @@ module.exports = [
 	'./gulp/tasks/fonts.js',
 	'./gulp/tasks/php.js',
 	'./gulp/tasks/rsync.js',
+	'./gulp/tasks/uncss.js',
 ];

@@ -8,8 +8,9 @@ module.exports = function(){
 			'node_modules/scrollmagic/scrollmagic/minified/ScrollMagic.min.js',
 			'node_modules/scrollmagic/scrollmagic/minified/plugins/animation.gsap.min.js',
 			'node_modules/scrollmagic/scrollmagic/minified/plugins/debug.addIndicators.min.js',
-			'node_modules/swup/dist/swup.js', 
+			// 'node_modules/swup/dist/swup.js',
 			'node_modules/gsap/src/minified/TweenMax.min.js',
+			'node_modules/object-fit-images/dist/ofi.min.js',
 			'node_modules/slick-carousel/slick/slick.min.js',
 			'src/static/js/scripts.js',
 			])

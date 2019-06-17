@@ -1,4 +1,3 @@
-
 var preloader = (function() {
     var percentsTotal = 0,
     preloader = $('.preloader');
@@ -23,6 +22,12 @@ var preloader = (function() {
     var setAnimations = function() {
         var timeline = new TimelineMax();
 
+        timeline.to(".animate", 1, {
+            opacity: 1,
+            ease: Expo.easeInOut
+        }, 0.2);
+
+        /*
         timeline.to(".main-block img", 1, {
             opacity: 1,
             ease: Expo.easeInOut
@@ -58,6 +63,7 @@ var preloader = (function() {
 
 
 
+
         var durationSocials = 0.5;
         $(".social-animate").each(function() {
             var socailAnimate = new TimelineMax();
@@ -74,6 +80,7 @@ var preloader = (function() {
                 ease: Expo.easeInOut
             }, durationSocials);
         });
+        */
 
     }
 
@@ -197,6 +204,7 @@ var slider = (function() {
         display = $(".slideshow .slideshow__display-pic");
         if (counter >= items.length) counter = 0;
         var reqItem = items.eq(counter);
+        
         activeItem.animate({
             'top': direction + '%'
         }, duration);
@@ -282,11 +290,12 @@ function scrollMagic() {
             triggerHook: 0.9,
         })
 
-        .setTween(TweenMax.from(this, 0.6, {
+        .setTween(TweenMax.from(this, 0.5, {
             autoAlpha: 0,
-            yoyo: true,
-            ease: Power0.easeNone
+            ease: Power0.easeNone,
+            yoyo: true
         }))
+        .reverse(false)
         .addIndicators()
         .addTo(controller)
     });
@@ -303,6 +312,7 @@ function scrollMagic() {
         .setTween(TweenMax.to(this, 1.6, {
             strokeDashoffset: strokeOffset,
         })) 
+        .reverse(false)
         .addIndicators()
         .addTo(controller)
         strokeOffset += 5
@@ -385,9 +395,7 @@ function moveBg(block) {
     }
 }
 
-
 function initScrollMagicPin() {
-
 
     var tooSmall = false;
     var controller = null;
@@ -443,6 +451,46 @@ function initScrollMagicPin() {
 
 }
 
+
+function getQueryParams(qs) {
+    qs = qs.split("+").join(" ");
+    var params = {},
+        tokens,
+        re = /[?&]?([^=]+)=([^&]*)/g;
+
+    while (tokens = re.exec(qs)) {
+        params[decodeURIComponent(tokens[1])]
+            = decodeURIComponent(tokens[2]);
+    }
+
+    return params;
+}
+
+
+function toggleLangugeSwitcher() {
+    var $_GET = $("#session-value").val();
+    if($_GET === 'en') {
+        $(".language-switcher li").removeClass("active");
+        $(".language-switcher li:eq(1)").addClass('active');   
+    } else if ($_GET === 'ru') {
+        $(".language-switcher li").removeClass("active");
+        $(".language-switcher li:eq(0)").addClass('active');   
+    }
+}
+
+function msieversion() {
+
+    var ua = window.navigator.userAgent;
+    var msie = ua.indexOf("MSIE ");
+
+    if (!msie > 0 || !navigator.userAgent.match(/Trident.*rv\:11\./))  // If Internet Explorer, return version number
+    {
+        var $someImages = $('.s-works .works img');
+    objectFitImages($someImages);
+    }
+    return false;
+}
+
 $(function() {
     svg4everybody();
     slider.init();
@@ -451,6 +499,14 @@ $(function() {
     scrollMagic();
     swupArticles();
     moveBg($(".page-back"));
+    toggleLangugeSwitcher();
+    msieversion();
+
+
+
+  
+
+
     //initScrollMagicPin();
 
 
@@ -548,26 +604,24 @@ $(function() {
         }
 
     });
-
-
-
+    var ajaxLoading = false;
     $("form.contacts-form").on("submit", function(e) {
         e.preventDefault();
-
-
         var that = $(this),
         url = that.attr('action'),
         type = that.attr('method'),
         data = {};
-
+    
         that.find('[name]').each(function(index, el) {
             var that = $(this),
             name = that.attr('name'),
             value = that.val();
-
             data[name] = value;
         });
         if($('.contacts-form__input--confirm').length === 3){ 
+            if(!ajaxLoading) {
+                ajaxLoading = true;
+                $(".lds-css").fadeIn();
            $.ajax({
             url: url,
             type: type,
@@ -576,13 +630,25 @@ $(function() {
                 $(".success-popup").addClass('active');
                 that.trigger("reset");
                 that.find('input, textarea').removeClass('contacts-form__input--confirm');
-                
+                ajaxLoading = false;
+                $(".lds-css").fadeOut();
             }
-        });
-       } else {
-        that.find('input, textarea').addClass('contacts-form__input--error');
+        });    
+           }
+       } 
+       else {
+        that.find("input:not(.contacts-form__input--confirm), textarea:not(.contacts-form__input--confirm)").addClass('contacts-form__input--error');
     }
+     
 });
+
+    $("input[type='reset']").on("click", function(event){
+
+    $("form.contacts-form").find("input, textarea").removeClass("contacts-form__input--confirm contacts-form__input--error")
+
+ });​
+
+
 
     $("a.popup__close").on("click", function(e) {
         e.preventDefault();

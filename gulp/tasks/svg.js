@@ -8,7 +8,7 @@ module.exports = function() {
 		}))
 		 .pipe($.gp.cheerio({
             run: function ($) {
-                $('[fill]').removeAttr('fill');
+                //$('[fill]').removeAttr('fill');
             },
             parserOptions: { xmlMode: true }
         }))

@@ -31,7 +31,7 @@
     "smart-grid": "^2.1.2"
   },
   "dependencies": {
-    "gsap": "^2.0.2",
+    "gsap": "^3.6.0",
     "gulp-group-css-media-queries": "^1.2.2",
     "gulp-rename": "^1.4.0",
     "gulp-svgstore": "^7.0.0",
